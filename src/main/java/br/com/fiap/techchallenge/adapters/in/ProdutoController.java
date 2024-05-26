@@ -1,0 +1,64 @@
+package br.com.fiap.techchallenge.adapters.in;
+
+import br.com.fiap.techchallenge.domain.model.Produto;
+import br.com.fiap.techchallenge.domain.service.ProdutoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/produtos")
+public class ProdutoController {
+
+    @Autowired
+    ProdutoService service;
+
+    @PostMapping("/cadastrar_produto")
+    public ResponseEntity<String> cadastrarProduto(@RequestBody Produto produto) {
+
+        try {
+            service.cadastrarProduto(produto);
+            return ResponseEntity.ok().body("Produto cadastrado com sucesso!");
+        } catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(String.format("Produto já cadastrado na base de dados de produtos."));
+        }
+
+    }
+
+    @GetMapping(value = "/{categoria}/buscar_produto")
+    public ResponseEntity<Produto> retornarProdutoCadastrado(@PathVariable("categoria") String categoria){
+
+        try {
+            Produto produto = service.retornarProdutoPorCategoria(categoria);
+            return ResponseEntity.ok().body(produto);
+        }catch (Exception e){
+            return ResponseEntity.noContent().build();
+        }
+
+    }
+
+    @DeleteMapping(value = "/{nome}/remover_produto")
+    public ResponseEntity<String> removerProduto(@PathVariable("nome") String nome){
+
+        try {
+            service.removerProduto(nome);
+            return ResponseEntity.ok().body(String.format("Produto %s removido da base de produtos com sucesso!", nome));
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Não existe este produto na base de dados para ser removido.");
+        }
+    }
+
+    @PutMapping(value = "/atualizar_produto")
+    public ResponseEntity<String> atualizarProduto(@RequestBody Produto produto){
+
+        try {
+            service.atualizarProduto(produto);
+            return ResponseEntity.ok().body(String.format("Produto %s atualizado na base de produtos com sucesso!", produto.getNome()));
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Não foi possível atualizar o produto. Certifique-se de que ele exista na base de daos e que todas as informações estão sendo enviadas..");
+        }
+    }
+
+
+
+}
