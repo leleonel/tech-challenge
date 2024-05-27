@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.QueryParam;
+
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -25,8 +27,8 @@ public class ProdutoController {
 
     }
 
-    @GetMapping(value = "/{categoria}/buscar_produto")
-    public ResponseEntity<Produto> retornarProdutoCadastrado(@PathVariable("categoria") String categoria){
+    @GetMapping(value = "/buscar_produto")
+    public ResponseEntity<Produto> retornarProdutoCadastrado(@QueryParam("categoria") String categoria){
 
         try {
             Produto produto = service.retornarProdutoPorCategoria(categoria);

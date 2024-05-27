@@ -8,19 +8,26 @@ import lombok.NonNull;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "produto")
 public class Produto {
 
+    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column
     @NonNull
     CategoriaProdutoEnum categoria;
+    @Column
     @NonNull
     String nome;
+    @Column
     @NonNull
     String descricao;
+    @Column
     @NonNull
     BigDecimal preco;
+    @Column
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     @JsonBackReference

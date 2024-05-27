@@ -1,4 +1,4 @@
-# Use uma imagem base do JDK 11
+# Use uma imagem base do JDK 17
 FROM openjdk:17-jdk-slim
 
 # Adicione um volume apontando para /tmp
@@ -15,4 +15,3 @@ EXPOSE 8080
 
 # Comando para executar a aplicação
 ENTRYPOINT ["java", "-jar", "/app.jar"]
-

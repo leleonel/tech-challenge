@@ -15,6 +15,10 @@ public class ClienteAdapter implements ClientePort {
 
     @Override
     public void cadastrarCliente(Cliente cliente) {
+
+        if(repository.existsByCpf(cliente.getCpf())){
+            throw new RuntimeException("Cliente já cadastrado.");
+        }
         repository.save(cliente);
     }
 

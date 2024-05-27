@@ -1,21 +1,23 @@
 package br.com.fiap.techchallenge.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.NonNull;
 
 @Entity
+@Table(name = "cliente")
 public class Cliente {
 
+    @Column
     @Id
             @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column
     @NonNull
     String cpf;
+    @Column
     @NonNull
     String nome;
+    @Column
     @NonNull
     String email;
 

@@ -7,14 +7,18 @@ import lombok.NonNull;
 import java.util.List;
 
 @Entity
+@Table(name = "pedido")
 public class Pedido {
 
+    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     @NonNull
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Produto> produtos;
+    @Column
     private StatusPedidoEnum status;
 
     public Pedido(Long id, @NonNull List<Produto> produtos, StatusPedidoEnum status) {
