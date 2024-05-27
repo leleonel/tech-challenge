@@ -23,6 +23,8 @@ public class ClienteController {
         try{
             service.cadastrarCliente(dadosCliente);
             return ResponseEntity.ok().body("Cliente cadastrado com sucesso!");
+        }catch (RuntimeException ex){
+            return ResponseEntity.badRequest().body(ex.getMessage());
         }catch (Exception e){
             throw new Exception("Houve um erro ao cadastrar cliente, " + e);
 
@@ -35,6 +37,9 @@ public class ClienteController {
     public ResponseEntity<String> retornarClienteCadastrado(@QueryParam("cpf") String cpf) throws Exception {
         try{
             Cliente cliente = service.retornarCliente(cpf);
+            if (cliente == null){
+                return ResponseEntity.notFound().build();
+            }
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             String json = ow.writeValueAsString(cliente);
             return ResponseEntity.ok().body("Dados do cliente retornados com sucesso: " + json);

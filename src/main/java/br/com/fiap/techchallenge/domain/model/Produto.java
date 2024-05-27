@@ -27,7 +27,6 @@ public class Produto {
     @Column
     @NonNull
     BigDecimal preco;
-    @Column
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "id")
     @JsonBackReference

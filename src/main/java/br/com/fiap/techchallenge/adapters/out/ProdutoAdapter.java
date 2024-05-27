@@ -7,6 +7,8 @@ import br.com.fiap.techchallenge.domain.port.ProdutoPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class ProdutoAdapter implements ProdutoPort {
 
@@ -28,8 +30,8 @@ public class ProdutoAdapter implements ProdutoPort {
 
 
     @Override
-    public Produto retornarProdutoPorCategoria(String categoria) {
-        return repository.findByCategoria(CategoriaProdutoEnum.valueOf(categoria.toUpperCase()));
+    public List<Produto> retornarProdutoPorCategoria(String categoria) {
+        return repository.findAllByCategoria(CategoriaProdutoEnum.valueOf(categoria.toUpperCase()));
     }
 
     @Override
@@ -40,15 +42,16 @@ public class ProdutoAdapter implements ProdutoPort {
 
     @Override
     public void atualizarProduto(Produto produto) {
+
+        //Busca produto a ser atualizado
         Produto produtoAtualizado = repository.findByNome(produto.getNome());
+
+        //Cria novo produto para receber novas características
         produtoAtualizado.setNome(produto.getNome());
         produtoAtualizado.setCategoria(produto.getCategoria());
         produtoAtualizado.setDescricao(produto.getDescricao());
         produtoAtualizado.setPreco(produto.getPreco());
 
         repository.save(produtoAtualizado);
-        repository.delete(produto);
-
-
     }
 }

@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -60,9 +61,9 @@ class ProdutoAdapterTest {
 
     @Test
     void testRetornarProdutoPorCategoria() {
-        when(repository.findByCategoria(CategoriaProdutoEnum.BEBIDA)).thenReturn(produto);
+        when(repository.findAllByCategoria(CategoriaProdutoEnum.BEBIDA)).thenReturn(List.of(produto));
 
-        Produto foundProduto = produtoAdapter.retornarProdutoPorCategoria("BEBIDA");
+        List<Produto> foundProduto = produtoAdapter.retornarProdutoPorCategoria("BEBIDA");
 
         assertEquals(produto, foundProduto);
     }

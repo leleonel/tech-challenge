@@ -14,7 +14,12 @@ public class ClienteService implements ClienteUseCase {
     @Override
     public void cadastrarCliente(Cliente cliente) {
 
-        port.cadastrarCliente(cliente);
+        try {
+            port.cadastrarCliente(cliente);
+        } catch (Exception e) {
+            throw new RuntimeException("Cliente já cadastrado");
+        }
+
     }
 
     @Override

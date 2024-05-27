@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.QueryParam;
+import java.util.List;
 
 @RestController
 @RequestMapping("/produtos")
@@ -28,10 +29,10 @@ public class ProdutoController {
     }
 
     @GetMapping(value = "/buscar_produto")
-    public ResponseEntity<Produto> retornarProdutoCadastrado(@QueryParam("categoria") String categoria){
+    public ResponseEntity<List<Produto>> retornarProdutoCadastrado(@QueryParam("categoria") String categoria){
 
         try {
-            Produto produto = service.retornarProdutoPorCategoria(categoria);
+            List<Produto> produto = service.retornarProdutoPorCategoria(categoria);
             return ResponseEntity.ok().body(produto);
         }catch (Exception e){
             return ResponseEntity.noContent().build();

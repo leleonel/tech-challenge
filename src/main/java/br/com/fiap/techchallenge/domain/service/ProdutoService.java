@@ -5,6 +5,8 @@ import br.com.fiap.techchallenge.domain.port.ProdutoPort;
 import br.com.fiap.techchallenge.domain.usecase.ProdutoUseCase;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class ProdutoService implements ProdutoUseCase {
 
@@ -17,7 +19,7 @@ public class ProdutoService implements ProdutoUseCase {
     }
 
     @Override
-    public Produto retornarProdutoPorCategoria(String categoria) {
+    public List<Produto> retornarProdutoPorCategoria(String categoria) {
         return port.retornarProdutoPorCategoria(categoria);
     }
 
